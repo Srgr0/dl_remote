@@ -3,8 +3,19 @@
 ## Usage
 
 ```
-$ ssh foo@bar -L 5900:localhost:5900 -L 6006:localhost:6006 -L 8888:localhost:8888
-$ docker run --gpus all -it --privileged -p 5900:5900 -p 6006:6006 -p 8888:8888 --name dl_remote naruya/dl_remote
+$ ssh xxx@xxx -p xxx -L 18888:localhost:18888 -L 15900:localhost:15900 -L 16006:localhost:16006
+$ docker pull naruya/dl_remote:nerfstudio
+$ docker run --gpus all -it -p 0.0.0.0:18888:8888 -p 0.0.0.0:15900:5900 -p 0.0.0.0:16006:6006 \
+      -v ~/workspace:/root/workspace --name name_nerfstudio naruya/dl_remote:nerfstudio
+% source ~/venv/nerf/bin/activate
+% pip install -U pip
+% pip install nerfstudio
+% ns-download-data --dataset=nerfstudio --capture=poster
+% ns-train nerfacto --vis viewer --viewer.websocket-port 6006 --data data/nerfstudio/poster
+# https://viewer.nerf.studio/versions/22-10-13-0/?websocket_url=ws://localhost:16006
+```
+
+```
 % vnc  # start x11vnc
 % jl  # jupyter lab
 % tb  # tensorboard
@@ -15,14 +26,11 @@ $ docker run --gpus all -it --privileged -p 5900:5900 -p 6006:6006 -p 8888:8888 
 ### Pytorch
 - `python -c "import torch; print(torch.cuda.is_available())"`
 
-### Tensorflow
-- `python -c "import tensorflow as tf; print(tf.test.is_gpu_available())"`
-
 ### x11vnc
-
 ```
-% apt install x11-apps mesa-utils
 % vnc  # start x11vnc
+
+% apt install x11-apps mesa-utils
 % xeyes  # cpu rendering
 % glxgears  # gpu rendering
 ```
