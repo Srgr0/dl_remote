@@ -17,14 +17,19 @@ RUN apt-get update && apt-get install -y xvfb x11vnc icewm
 RUN echo 'alias vnc="export DISPLAY=:0; Xvfb :0 -screen 0 1400x900x24 &; x11vnc -display :0 -forever -noxdamage > /dev/null 2>&1 &; icewm-session &"' >> /root/.zshrc
 
 # torch
-RUN python -m venv /root/venv/torch
-RUN source ~/venv/torch/bin/activate && \
+RUN python -m venv /root/venv/nerf
+RUN source ~/venv/nerf/bin/activate && \
     pip install -U pip && \
     pip install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu113
 
+# nerfstudio
+RUN source ~/venv/nerf/bin/activate && \
+    pip install git+https://github.com/NVlabs/tiny-cuda-nn/#subdirectory=bindings/torch
+    # pip install -U nerfstudio
+
 # utils
 RUN apt-get update && apt-get install -y vim ffmpeg
-RUN source ~/venv/torch/bin/activate && \
+RUN source ~/venv/nerf/bin/activate && \
     pip install jupyterlab tensorboard ipywidgets && \
     echo 'alias jl="jupyter lab --ip 0.0.0.0 --port 8888 --NotebookApp.token='' --allow-root &"' >> /root/.zshrc && \
     echo 'alias tb="tensorboard --host 0.0.0.0 --port 6006 --logdir runs &"' >> /root/.zshrc
