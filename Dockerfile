@@ -22,11 +22,6 @@ RUN source ~/venv/nerf/bin/activate && \
     pip install -U pip && \
     pip install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu113
 
-# nerfstudio
-RUN source ~/venv/nerf/bin/activate && \
-    pip install git+https://github.com/NVlabs/tiny-cuda-nn/#subdirectory=bindings/torch
-    # pip install -U nerfstudio
-
 # utils
 RUN apt-get update && apt-get install -y vim ffmpeg
 RUN source ~/venv/nerf/bin/activate && \
