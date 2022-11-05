@@ -6,12 +6,12 @@ ref: [nerfstudio](https://github.com/nerfstudio-project/nerfstudio#1-installatio
 
 ```
 $ ssh xxx@xxx -p xxx -L 18888:localhost:18888 -L 15900:localhost:15900 -L 16006:localhost:16006
-$ docker pull naruya/dl_remote:nerfstudio
+$ docker pull naruya/dl_remote:torch-11.3
 $ docker run --gpus all -it -p 0.0.0.0:18888:8888 -p 0.0.0.0:15900:5900 -p 0.0.0.0:16006:6006 \
-      -v ~/workspace:/root/workspace --name name_nerfstudio naruya/dl_remote:nerfstudio
-% source ~/venv/nerf/bin/activate
+      -v ~/workspace:/root/workspace --name name_nerfstudio naruya/dl_remote:torch-11.3
+% source ~/venv/torch/bin/activate
 % pip install -U pip
-% pip install git+https://github.com/NVlabs/tiny-cuda-nn/#subdirectory=bindings/torch
+% pip install git+https://github.com/NVlabs/tiny-cuda-nn/#subdirectory=bindings/torch  # 時間かかる
 % pip install nerfstudio
 % ns-download-data --dataset=nerfstudio --capture=poster
 % ns-train nerfacto --vis viewer --viewer.websocket-port 6006 --data data/nerfstudio/poster
