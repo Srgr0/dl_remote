@@ -12,9 +12,16 @@ $ docker run --gpus all -it -p 0.0.0.0:18888:8888 -p 0.0.0.0:15900:5900 -p 0.0.0
 % source ~/venv/torch/bin/activate
 % pip install -U pip
 % pip install git+https://github.com/NVlabs/tiny-cuda-nn/#subdirectory=bindings/torch  # 時間かかる
-% pip install nerfstudio
+% git clone https://github.com/nerfstudio-project/nerfstudio.git
+% cd nerfstudio
+% nano nerfstudio/viewer/app/src/modules/WebRtcWindow/WebRtcWindow.jsx
+edit turn server addresses.
+% pip install --upgrade pip setuptools
+% pip install -e .
+% cd ../
+
 % ns-download-data --dataset=nerfstudio --capture=poster
-% ns-train nerfacto --vis viewer --viewer.websocket-port 6006 --data data/nerfstudio/poster
+% ns-train nerfacto --vis viewer --viewer.websocket-port 16006 --data data/nerfstudio/poster
 # https://viewer.nerf.studio/versions/22-10-13-0/?websocket_url=ws://localhost:16006
 ```
 
