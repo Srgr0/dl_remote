@@ -4,6 +4,10 @@
 
 ref: [nerfstudio](https://github.com/nerfstudio-project/nerfstudio#1-installation-setup-the-environment)
 
+setup turn server: https://qiita.com/komasshu/items/729119b5100ffb7b28ea
+
+useful tool:https://sslnow.ml/
+
 ```
 $ ssh xxx@xxx -p xxx -L 18888:localhost:18888 -L 15900:localhost:15900 -L 16006:localhost:16006
 $ docker pull naruya/dl_remote:torch-11.3
