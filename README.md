@@ -19,6 +19,7 @@ $ docker run --gpus all -it -p 0.0.0.0:18888:8888 -p 0.0.0.0:15900:5900 -p 0.0.0
 % git clone https://github.com/nerfstudio-project/nerfstudio.git
 % cd nerfstudio
 % nano nerfstudio/viewer/app/src/modules/WebRtcWindow/WebRtcWindow.jsx
+if nano is not installed: apt update && apt install nano
 edit turn server addresses.
 % pip install --upgrade pip setuptools
 % pip install -e .
