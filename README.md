@@ -6,8 +6,6 @@ ref: [nerfstudio](https://github.com/nerfstudio-project/nerfstudio#1-installatio
 
 setup turn server on your machine: https://zenn.dev/srgr0/articles/build_coturn_server
 
-useful tool:https://sslnow.ml/
-
 ```
 $ ssh xxx@xxx -p xxx -L 18888:localhost:18888 -L 15900:localhost:15900 -L 16006:localhost:16006
 $ docker pull naruya/dl_remote:torch-11.3
