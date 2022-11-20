@@ -48,6 +48,9 @@ $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev
 apt update
 apt install docker-ce docker-ce-cli containerd.io docker-compose-plugin
 docker version
+
+4. cudaのインストール
+https://developer.nvidia.com/cuda-downloads?target_os=Linux&target_arch=x86_64&Distribution=WSL-Ubuntu&target_version=2.0&target_type=deb_local
 ```
 
 ```
