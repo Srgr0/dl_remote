@@ -39,6 +39,7 @@ sed -i 's/#NTP=/NTP=ntp.nict.jp/g' /etc/systemd/timesyncd.conf
 
 
 3. Dockerのインストール
+# wsl2/ubuntu
 apt install ca-certificates curl gnupg lsb-release
 mkdir -p /etc/apt/keyrings
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
@@ -49,11 +50,17 @@ apt update
 apt install docker-ce docker-ce-cli containerd.io docker-compose-plugin
 docker version
 
-4. cudaのインストール
-https://developer.nvidia.com/cuda-downloads?target_os=Linux&target_arch=x86_64&Distribution=WSL-Ubuntu&target_version=2.0&target_type=deb_local
+4. runtimeのインストール
+# wsl2/ubuntu
+curl -s -L https://nvidia.github.io/nvidia-container-runtime/gpgkey | apt-key add -
+curl -s -L https://nvidia.github.io/nvidia-container-runtime/ubuntu20.04/nvidia-container-runtime.list | tee /etc/apt/sources.list.d/nvidia-container-runtime.list
+apt update
+apt install nvidia-container-runtime
+service docker restart
 ```
 
 ```
+# wsl2/ubuntu
 $ ssh xxx@xxx -p xxx -L 18888:localhost:18888 -L 15900:localhost:15900 -L 16006:localhost:16006
 $ docker pull naruya/dl_remote:torch-11.3
 $ docker run --gpus all -it -p 0.0.0.0:18888:8888 -p 0.0.0.0:15900:5900 -p 0.0.0.0:16006:6006 \
