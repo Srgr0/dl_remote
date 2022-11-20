@@ -4,7 +4,7 @@
 
 ref: [nerfstudio](https://github.com/nerfstudio-project/nerfstudio#1-installation-setup-the-environment)
 
-setup turn server: https://qiita.com/komasshu/items/729119b5100ffb7b28ea
+setup turn server on your machine: https://zenn.dev/srgr0/articles/build_coturn_server
 
 useful tool:https://sslnow.ml/
 
