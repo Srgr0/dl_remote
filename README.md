@@ -73,11 +73,19 @@ $ docker run --gpus all -it -p 0.0.0.0:18888:8888 -p 0.0.0.0:15900:5900 -p 0.0.0
 % nano nerfstudio/viewer/app/src/modules/WebRtcWindow/WebRtcWindow.jsx
 if nano is not installed: apt update && apt install nano
 edit turn server addresses.
+
+(2022/11/20 temporary)
+https://github.com/nerfstudio-project/nerfstudio/pull/968
+cd scripts/downloads
+rm download_data.py
+wget https://raw.githubusercontent.com/nerfstudio-project/nerfstudio/8734a19f91ea191884c06ac03dbd546851ce3ff7/scripts/downloads/download_data.py
+chmod 755 download_data.py
+
 % pip install --upgrade pip setuptools
 % pip install -e .
 % cd ../
 
-% ns-download-data --dataset=nerfstudio --capture=poster
-% ns-train nerfacto --vis viewer --viewer.websocket-port 16006 --data data/nerfstudio/poster
+% ns-download-data nerfstudio
+% ns-train nerfacto --vis viewer --viewer.websocket-port 16006 --data data/nerfstudio/bww_entrance
 # https://viewer.nerf.studio/versions/22-10-13-0/?websocket_url=ws://localhost:16006
 ```
