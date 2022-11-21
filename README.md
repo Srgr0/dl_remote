@@ -6,7 +6,7 @@ ref: [nerfstudio](https://github.com/nerfstudio-project/nerfstudio#1-installatio
 
 setup turn server on your machine: https://zenn.dev/srgr0/articles/build_coturn_server
 
-### 1. Setup WSL2
+### 1. Setup WSL2 / Ubuntu 20.04
 ```
 1.NVIDIAドライバーのインストール
 検索して入れてください。
@@ -59,33 +59,33 @@ apt install nvidia-container-runtime
 service docker restart
 ```
 
+### 2. Setup nerfstudio
 ```
 # wsl2/ubuntu
-$ ssh xxx@xxx -p xxx -L 18888:localhost:18888 -L 15900:localhost:15900 -L 16006:localhost:16006
-$ docker pull naruya/dl_remote:torch-11.3
-$ docker run --gpus all -it -p 0.0.0.0:18888:8888 -p 0.0.0.0:15900:5900 -p 0.0.0.0:16006:6006 \
+# ssh xxx@xxx -p xxx -L 18888:localhost:18888 -L 15900:localhost:15900 -L 16006:localhost:16006
+docker pull naruya/dl_remote:torch-11.3
+docker run --gpus all -it -p 0.0.0.0:18888:8888 -p 0.0.0.0:15900:5900 -p 0.0.0.0:16006:6006 \
       -v ~/workspace:/root/workspace --name name_nerfstudio naruya/dl_remote:torch-11.3
-% source ~/venv/torch/bin/activate
-% pip install -U pip
-% pip install git+https://github.com/NVlabs/tiny-cuda-nn/#subdirectory=bindings/torch  # 時間かかる
-% git clone https://github.com/nerfstudio-project/nerfstudio.git
-% cd nerfstudio
-% nano nerfstudio/viewer/app/src/modules/WebRtcWindow/WebRtcWindow.jsx
-if nano is not installed: apt update && apt install nano
-edit turn server addresses.
 
-(2022/11/20 temporary)
-https://github.com/nerfstudio-project/nerfstudio/pull/968
-cd scripts/downloads
-rm download_data.py
-wget https://raw.githubusercontent.com/nerfstudio-project/nerfstudio/8734a19f91ea191884c06ac03dbd546851ce3ff7/scripts/downloads/download_data.py
-chmod 755 download_data.py
+# docker instance
+source ~/venv/torch/bin/activate
+pip install -U pip
+pip install git+https://github.com/NVlabs/tiny-cuda-nn/#subdirectory=bindings/torch  # 時間かかる
+git clone https://github.com/nerfstudio-project/nerfstudio.git
+cd nerfstudio
+nano nerfstudio/viewer/app/src/modules/WebRtcWindow/WebRtcWindow.jsx
 
-% pip install --upgrade pip setuptools
-% pip install -e .
-% cd ../
+# if nano is not installed: apt update && apt install nano
+# edit stun/turn server addresses.
 
-% ns-download-data nerfstudio
-% ns-train nerfacto --vis viewer --viewer.websocket-port 16006 --data data/nerfstudio/bww_entrance
+pip install --upgrade pip setuptools
+pip install -e .
+cd ../
+
+# 2022/11/21 temporary
+pip install tyro==0.3.33
+
+ns-download-data nerfstudio
+ns-train nerfacto --vis viewer --viewer.websocket-port 16006 --data data/nerfstudio/bww_entrance
 # https://viewer.nerf.studio/versions/22-10-13-0/?websocket_url=ws://localhost:16006
 ```
