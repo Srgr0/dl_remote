@@ -1,1 +1,52 @@
 name: Docker Image CI
+
+#run on push, manual run is also possible
+on:
+    push:
+        branches:
+            - build_in_github_actions
+    workflow_dispatch:
+
+jobs:
+    build_and_push:
+        name: Build and Push
+        runs-on: ubuntu-latest
+        steps:
+        - name: Check out the repo
+          uses: actions/checkout@v3.6.0
+
+        #Support amd64 & arm64
+        - name: Set up Docker Buildx
+          id: buildx
+          uses: docker/setup-buildx-action@v2.9.1
+          with:
+            platforms: linux/amd64,linux/arm64
+
+        - name: Docker meta
+          id: meta
+          uses: docker/metadata-action@v4
+          with:
+            #Please change the image name to your own
+            images: srgr0/dl_remote
+
+        - name: Log in to Docker Hub
+          uses: docker/login-action@v2
+          with:
+            #Please put the authentication information of Docker Hub in the secret of GitHub Actions
+            #You should use Personal Access Tokens instead of your password
+            username: ${{ secrets.DOCKER_USERNAME }}
+            password: ${{ secrets.DOCKER_PASSWORD }}
+
+        - name: Build and Push to Docker Hub
+          uses: docker/build-push-action@v4
+          with:
+            builder: ${{ steps.buildx.outputs.name }}
+            context: .
+            push: true
+            platforms: ${{ steps.buildx.outputs.platforms }}
+            provenance: false
+            #Please change the image tag to your own
+            tags: srgr0/dl_remote:develop
+            labels: develop
+            cache-from: type=gha
+            cache-to: type=gha,mode=max
